@@ -1,7 +1,11 @@
-import { useQuiz } from "../contexts/QuizContext";
+import { useSelector, useDispatch } from "react-redux";
+import { restart } from "../redux/quizSlice";
 
 function FinishScreen() {
-  const { points, maxPossiblePoints, highscore, dispatch } = useQuiz();
+  const { points, maxPossiblePoints, highscore } = useSelector(
+    (state) => state.quiz
+  );
+  const dispatch = useDispatch();
   const percentage = (points / maxPossiblePoints) * 100;
 
   let emoji;
@@ -14,14 +18,11 @@ function FinishScreen() {
   return (
     <>
       <p className="result">
-        <span>{emoji}</span> You scored <strong>{points}</strong>
+        <span>{emoji}</span> You scored <strong>{points + " "}</strong>
         out of {maxPossiblePoints}({Math.ceil(percentage)}%)
       </p>
       <p className="highscore">(Highscore: {highscore} points)</p>
-      <button
-        className="btn btn-ui"
-        onClick={() => dispatch({ type: "restart" })}
-      >
+      <button className="btn btn-ui" onClick={() => dispatch(restart())}>
         Restart quiz
       </button>
     </>

@@ -1,9 +1,11 @@
-import { useQuiz } from "../contexts/QuizContext";
+import { useSelector } from "react-redux";
+
 import Options from "./Options";
+import { selectQuestionById } from "../redux/questionAdapter";
 
 function Question() {
-  const { questions, index } = useQuiz();
-  const question = questions.at(index);
+  const index = useSelector((state) => state.quiz.index);
+  const question = useSelector((state) => selectQuestionById(state, index + 1));
 
   return (
     <div>

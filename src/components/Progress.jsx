@@ -1,7 +1,8 @@
-import { useQuiz } from "../contexts/QuizContext";
+import { useSelector } from "react-redux";
 
 function Progress() {
-  const { index, numQuestions, points, maxPossiblePoints, answer } = useQuiz();
+  const { index, numQuestions, points, maxPossiblePoints, answer } =
+    useSelector((state) => state.quiz);
 
   return (
     <header className="progress">

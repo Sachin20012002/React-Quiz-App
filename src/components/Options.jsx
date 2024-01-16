@@ -1,7 +1,9 @@
-import { useQuiz } from "../contexts/QuizContext";
+import { useSelector, useDispatch } from "react-redux";
+import { newAnswer } from "../redux/quizSlice";
 
 function Options({ question }) {
-  const { dispatch, answer } = useQuiz();
+  const answer = useSelector((state) => state.quiz.answer);
+  const dispatch = useDispatch();
   const hasAnswered = answer !== null;
   return (
     <div className="options">
@@ -16,7 +18,7 @@ function Options({ question }) {
           }`}
           key={option}
           disabled={hasAnswered}
-          onClick={() => dispatch({ type: "newAnswer", payload: index })}
+          onClick={() => dispatch(newAnswer(index))}
         >
           {option}
         </button>

@@ -1,16 +1,17 @@
 import { useEffect } from "react";
-import { useQuiz } from "../contexts/QuizContext";
+import { useSelector, useDispatch } from "react-redux";
+import { tick } from "../redux/quizSlice";
 
 function Timer() {
-  const { dispatch, secondsRemaining } = useQuiz();
-
+  const secondsRemaining = useSelector((state) => state.quiz.secondsRemaining);
+  const dispatch = useDispatch();
   const mins = Math.floor(secondsRemaining / 60);
   const seconds = secondsRemaining % 60;
 
   useEffect(
     function () {
       const id = setInterval(function () {
-        dispatch({ type: "tick" });
+        dispatch(tick());
       }, 1000);
 
       return () => clearInterval(id);
